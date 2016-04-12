@@ -1,0 +1,16 @@
+.parent-container-home{ margin-top: 70px;}
+#navbar ul li a{ color: #009dff; }
+
+.xc-btn-add-new-user{
+    height: 40px;
+    width: 110px;
+    margin: 5px 0px 20px 0px;
+}
+.xc-icon-spacer{
+    margin: 5px;
+}
+.fade{
+    -webkit-transition: opacity 2s; /* For Safari 3.1 to 6.0 */
+    transition: opacity 2s;
+    opacity: 0;
+}
