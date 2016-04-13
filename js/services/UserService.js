@@ -1,26 +1,15 @@
 saazooApp.service('userService', function($http, $q){
     return({
       addRole : addRole,
-      getCsrf : getCsrf,   
+      getCsrf : getCsrf, 
+      getRoles : getRoles,    
     });
 
 
     /*
     * Role Area Functions Start
     */
-    function addRole(role,csrftoken){
-        console.info("CSRF Value in Service: ", csrftoken);
-      /* var request = $http({
-                method: "post",
-                url: url+"admin/add-role-ajax",
-                params: {
-                    role: role,
-                    '_token':csrftoken
-                }
-            
-            });
-            return(request.then(handleSuccess, handleError));*/
-        
+    function addRole(role,csrftoken){        
        return $http.post(url+"admin/add-role-ajax",{"role" : role,"_csrf" : csrftoken}).success(function(response){
             return (response.data);
         }).error(function(response){
@@ -55,4 +44,19 @@ saazooApp.service('userService', function($http, $q){
           return response.data;
         });
     }
+    
+    /*
+    *   Get Roles
+    */
+    
+    function getRoles(){
+        var request = $http({
+            method: "get",
+            url: url+"admin/get-roles-ajax",          
+            
+        });
+        return(request.then(handleSuccess, handleError));
+    }
+    
+    
 });

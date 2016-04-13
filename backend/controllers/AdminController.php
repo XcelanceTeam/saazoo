@@ -130,5 +130,15 @@ class AdminController extends \yii\web\Controller
         $res = array("status" => 1, "data" => array("csrf"=>$csrf));
        echo Json::encode($res);
     }
+    
+    /*
+    *  Get Roles
+    */
+    
+    public function actionGetRolesAjax(){
+        $userRole = new UserRoles();
+        $roles = $userRole::find()->all();
+        echo Json::encode(array('status'=>0, 'msg'=>'success','data' => $roles));
+    }
 
 }

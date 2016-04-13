@@ -8,7 +8,7 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" ng-init= "getRoles()">
         <div class="row">
             <div class="col-xs-12">
                  <uib-alert ng-show = "msg!=''" type="{{alerttype}}" closeable= "true" close="closeAlert()">{{ msg }}</uib-alert>
@@ -16,7 +16,7 @@
                
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Data Table With Full Features</h3>
+                        <h3 class="box-title">User Roles</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -36,7 +36,7 @@
                                 <div class="col-sm-6">
                                     <div id="example1_filter" class="dataTables_filter">
                                         <label>Search:
-                                            <input type="search" class="form-control input-sm" placeholder="" aria-controls="example1">
+                                            <input type="search" ng-model="search" class="form-control input-sm" placeholder="" aria-controls="example1">
                                         </label>
                                     </div>
                                 </div>
@@ -46,102 +46,32 @@
                                     <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 181px;">Rendering engine</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 224px;">Browser</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 197px;">Platform(s)</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 154px;">Engine version</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 112px;">CSS grade</th>
+                                                <th ng-click = "sort('id')"  rowspan="1" colspan="1" style="width: 181px;">Id <i class="fa sort-icon" ng-show="sortKey == 'id'" ng-class="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></i></th>
+                                                <th ng-click = "sort('role_name')"  rowspan="1" colspan="1" style="width: 224px;">Role Name<i class="fa sort-icon" ng-show="sortKey == 'role_name'" ng-class="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></i></th>
+                                                <th ng-click = "sort('status')"  rowspan="1" colspan="1" style="width: 197px;">Status<i class="fa sort-icon" ng-show="sortKey == 'status'" ng-class="{'fa-angle-up':reverse,'fa-angle-down':!reverse}"></i></th>
+                                                
+                                                <th class="" tabindex="0" rowspan="1" colspan="1" style="width: 112px;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
-
-
-
-
-
-
-
-
-
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Firefox 1.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="even">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Firefox 1.5</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Firefox 2.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="even">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Firefox 3.0</td>
-                                                <td>Win 2k+ / OSX.3+</td>
-                                                <td>1.9</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Camino 1.0</td>
-                                                <td>OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="even">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Camino 1.5</td>
-                                                <td>OSX.3+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Netscape 7.2</td>
-                                                <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="even">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Netscape Browser 8</td>
-                                                <td>Win 98SE+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Netscape Navigator 9</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr role="row" class="even">
-                                                <td class="sorting_1">Gecko</td>
-                                                <td>Mozilla 1.0</td>
-                                                <td>Win 95+ / OSX.1+</td>
-                                                <td>1</td>
-                                                <td>A</td>
+                                            <tr ng-repeat = "userrole in userroles | orderBy:sortKey:reverse | filter:search">
+                                                <td>{{ userrole.id }}</td>
+                                                <td>{{ userrole.role_name }}</td>
+                                                <td ng-show="userrole.status == 0">Active</td>
+                                                <td ng-show="userrole.status != 0">In-Active</td>
+                                                <td>
+                                                    <a href="" ng-click="editRole(userrole.id)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                                                    <a href="" ng-click="editRole(userrole.id)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th rowspan="1" colspan="1">Rendering engine</th>
-                                                <th rowspan="1" colspan="1">Browser</th>
-                                                <th rowspan="1" colspan="1">Platform(s)</th>
-                                                <th rowspan="1" colspan="1">Engine version</th>
-                                                <th rowspan="1" colspan="1">CSS grade</th>
+                                                <th rowspan="1" colspan="1">Id</th>
+                                                <th rowspan="1" colspan="1">Role Name</th>
+                                                <th rowspan="1" colspan="1">Status</th>
+                                                <th rowspan="1" colspan="1"></th>
+                                               
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -174,27 +104,8 @@
             </div>
             <!-- /.col -->
         </div>
-        <!-- /.row -->
-        <div style="padding: 10px 0px; text-align: center;">
-            <div class="text-muted">Excuse the ads! We need some help to keep our site up.</div>
-            <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <div class="visible-xs visible-sm">
-                <!-- AdminLTE --><ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-4495360934352473" data-ad-slot="5866534244" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
-                </ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-
-                </script>
-            </div>
-            <div class="hidden-xs hidden-sm">
-                <!-- Home large leaderboard --><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-4495360934352473" data-ad-slot="1170479443" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
-                </ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-
-                </script>
-            </div>
-        </div>
+        
+       
     </section>
     <!-- /.content -->
 </div>

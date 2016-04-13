@@ -1,4 +1,4 @@
-var saazooApp = angular.module('saazooApp', ['ui.router','ui.bootstrap']);//'ui.router',
+var saazooApp = angular.module('saazooApp', ['ui.router','ui.bootstrap','angularUtils.directives.dirPagination']);//'ui.router',
 var url = "http://localhost/saazoo/backend/index.php/";
 /*saazooApp.constant("CSRF_TOKEN", '{!! csrf_token() !!}');
 saazooApp.run( function run($http){

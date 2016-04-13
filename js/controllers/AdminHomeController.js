@@ -45,7 +45,7 @@ saazooApp.controller('adminHomeController', function($scope,$http,appSettings,us
             $scope.res = result;          
             if($scope.res.data.status == 0)
             {
-                $scope.msg= $filter('uppercase')(appSettings.addrolesuccess);
+                $scope.msg= $filter('uppercase')(appSettings.ADDROLESUCCESS);
                 $scope.alerttype = 'success';
                 console.log($scope.userrole.msg);
                // $scope.userrole.role = res.data.name; 
@@ -57,14 +57,14 @@ saazooApp.controller('adminHomeController', function($scope,$http,appSettings,us
             }else if($scope.res.data.status == 2){
                 // Role Exists
                 $scope.alerttype = 'warning';
-                $scope.msg= appSettings.rolealreadyexists;
+                $scope.msg= appSettings.ROLEALREADYEXISTS;
                 console.log($scope.userrole.msg);
                 $location.path('admin/addnewrole');
                //$timeout(closeAlert, 1000);
                 
             }else if($scope.res.data.status == 3){
                 $scope.alerttype = 'danger';
-                $scope.userrole.msg= appSettings.unknownerror;
+                $scope.userrole.msg= appSettings.UNKNOWNERROR;
                 console.log($scope.userrole.msg);
                 $location.path('admin/addnewrole');
                // $timeout(closeAlert, 1000);
@@ -98,6 +98,36 @@ saazooApp.controller('adminHomeController', function($scope,$http,appSettings,us
             $scope.hidden = true;
         }, 2000);
     };
+    
+    /*
+    *    Get Roles
+    */
+    
+    $scope.getRoles = function(){
+        userService.getRoles().then(function(result){
+            $scope.userroles = [];
+            if(result.data.length>0){                 
+                angular.forEach(result.data,function(userrole,key){                 
+                     $scope.userrole = userrole;
+                    $scope.userroles.push($scope.userrole);
+                });
+              
+            }else{
+                $scope.alerttype = 'warning';
+                $scope.msg = appSettings.EMPTYDATA;
+            }
+        })
+    }
+    
+    /*
+    *  SORT Function
+    */
+    
+    $scope.sort = function(keyname){
+        debugger;
+        $scope.sortKey = keyname;   //set the sortKey to the param passed
+        $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+    }
     
 //  $timeout(function() { alert.expired = true; }, 2000);
     

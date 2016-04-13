@@ -10,7 +10,7 @@ $(function () {
   "use strict";
 
   //Make the dashboard widgets sortable Using jquery UI
-  $(".connectedSortable").sortable({
+  /*$(".connectedSortable").sortable({
     placeholder: "sort-highlight",
     connectWith: ".connectedSortable",
     handle: ".box-header, .nav-tabs",
@@ -26,7 +26,7 @@ $(function () {
     forcePlaceholderSize: true,
     zIndex: 999999
   });
-
+*/
   //bootstrap WYSIHTML5 - text editor
   $(".textarea").wysihtml5();
 
