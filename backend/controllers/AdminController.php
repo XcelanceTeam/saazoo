@@ -135,10 +135,60 @@ class AdminController extends \yii\web\Controller
     *  Get Roles
     */
     
-    public function actionGetRolesAjax(){
+    public function actionGetRolesAjax(){        
+        $itemsperpage = $_GET['itemsPerPage'];
+        $pageno = $_GET['pageno'];
         $userRole = new UserRoles();
-        $roles = $userRole::find()->all();
-        echo Json::encode(array('status'=>0, 'msg'=>'success','data' => $roles));
+        $roles = $userRole::find() 
+            ->offset(($pageno-1)*$itemsperpage)
+            ->limit($itemsperpage)
+            ->all();
+        $count = $userRole::find()->count();
+        echo Json::encode(array('status'=>0, 'msg'=>'success','data' => $roles,'total_count' => $count));
+    }
+    
+    /*
+    * Update User Role
+    */
+    
+    public function actionEditRoleAjax(){
+        $request = Yii::$app->request;
+        if ($request->isPost){ 
+            $roleChangeRequestData = $request->getBodyParam('userrole');                      
+            $userRole = UserRoles::findOne($roleChangeRequestData['id']);          
+            $userRole->role_name = $roleChangeRequestData['role_name'];
+            $userRole->status = $roleChangeRequestData['status'];          
+            if($userRole->update()!==false){
+                 echo Json::encode(array('status'=>0, 'msg'=>'success'));
+            }
+            else
+            {
+                echo Json::encode(array('status'=>1, 'msg'=>'error','errormessages'=>$userRole->getErrors()));
+            }
+           
+        }
+        else{
+            echo Json::encode(array('status'=>3, 'msg'=>'unknown error'));
+        }
+    }
+    
+    /*
+    *  Delete Role
+    */
+    
+    public function actionDeleteRoleAjax(){
+         $request = Yii::$app->request;
+        if ($request->isPost){ 
+            $roleid = $request->getBodyParam('roleid'); 
+            $userRole = UserRoles::findOne($roleid);
+            if($userRole->delete()!==false){
+                echo Json::encode(array('status'=>0, 'msg'=>'success'));
+            }else{
+                echo Json::encode(array('status'=>1, 'msg'=>'error','errormessages'=>$userRole->getErrors()));
+            }
+        }else{
+            echo Json::encode(array('status'=>3, 'msg'=>'unknown error'));
+        }
     }
 
 }

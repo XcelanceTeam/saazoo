@@ -17,6 +17,9 @@ saazooApp.config(function($stateProvider, $urlRouterProvider){
     }).state('/newrole',{
         url : '/admin/addnewrole',
         templateUrl : 'partials/newrole.html'
+    }).state('/editrole',{
+        url : '/admin/editrole',
+        templateUrl : 'partials/newrole.html'
     });
 });
 /*saazooApp.config(function($routeProvider, $locationProvider){
