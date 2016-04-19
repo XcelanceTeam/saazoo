@@ -63,6 +63,26 @@ saazooApp.controller('indexController', function($scope, $http, $state, $locatio
     
     //Login Function Ends here
     
-    //hid 709 firstfloor..
+    /*
+    * Current Location
+    */
+    $scope.currentPage = $location.path();
     
+    /*
+    *  Forgot Password
+    */
+    
+    $scope.forgotPassword = function(){
+        var destinationurl = "http://"+$window.location.host+'/saazoo/user/index.html#/forgot-password';
+        $window.location.href = destinationurl;
+    }
+    
+    /*
+    *  Register User Form
+    */
+    
+    $scope.registerUser = function(){
+        var destinationurl = "http://"+$window.location.host+'/saazoo/user/index.html#/register';
+        $window.location.href = destinationurl;
+    }
 });

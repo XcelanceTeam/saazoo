@@ -14,7 +14,7 @@
         
     </head>
     <body >
-         <nav class="navbar navbar-default navbar-fixed-top">
+         <nav class="navbar navbar-default navbar-fixed-top" ng-if = "currentPage!=='/login'">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -49,9 +49,11 @@
             </form>
              <span ng-class="{'text-success': res.status == 0, 'text-danger': res.status != 0}">{{ user.msg }}</span>
           </saazoologinmodal>
-        
-        <div ui-view></div>
-        <h2>Page Title {{ pageTitle }}</h2>
+       
+       
+        <h2 ng-if = "currentPage!=='/login'">Page Title {{ pageTitle }}</h2>
+         <div ui-view></div>
+      
         <a href="#/login">Vendor sign in</a>
     </body>
     <script src="js/assets/jquery.js"></script>

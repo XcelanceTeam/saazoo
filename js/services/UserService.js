@@ -5,6 +5,7 @@ saazooApp.service('userService', function($http, $q){
         getRoles : getRoles,
         updateRole: updateRole,
         deleteRole: deleteRole,
+        getBusinessCategories: getBusinessCategories,
     });
 
     /*
@@ -98,6 +99,19 @@ saazooApp.service('userService', function($http, $q){
     
     function deleteRole(roleid,csrftoken){
         return $http.post(url+"admin/delete-role-ajax",{"roleid" : roleid,"_csrf" : csrftoken}).success(handleSuccess).error(handleError);
+    }
+    
+    /*
+    *  Get Business Category List
+    */
+    
+    function getBusinessCategories()
+    {
+        var request = $http({
+           "method": "GET",
+            "url" : url+'user/get-business-category-list-ajax',
+        });
+        return request.then(handleSuccess,handleError);
     }
     
 });

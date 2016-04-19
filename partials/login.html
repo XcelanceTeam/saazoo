@@ -1,0 +1,33 @@
+<div class="skin" style="position:relative">
+    <div class="text-center" style="margin:20px 0 0 0">
+        <a href="/"><img src="/i/logo_vtp.png" /></a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                <div class="page-header" style="border-bottom:none;padding-bottom:10px">
+                    <h1 style="font-size:40px; text-align:center; line-height:30px;">Vendor Sign In<small><br /> Please enter your email address and password to sign in</small></h1></div>
+            </div>
+            <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 col-sm-12 col-xs-12">
+                <form action="/login" class="box" method="post" style="margin-bottom:20px">
+                    <input type="hidden" name="_csrf" value="kFLpDi9ofBobAOGtLPBJXotCxSuC+yja+/xGSUVwJIQ=" />
+                    <label for="email">Email address:</label>
+                    <input class="form-control" id="email" name="email" style="font-size:16px" type="email" />
+                    <label>Password:</label>
+                    <input class="form-control" name="password" style="font-size:16px" type="password" />
+                    <input name="r" type="hidden" />
+                    <label></label>
+                    <button class="btn btn-primary btn-block" type="submit"><i class="icon-lock"></i> Sign In</button>
+                    <p class="text-right" style="margin:10px 0 0 0"><a ng-click="forgotPassword()" href="#">Forgot password?</a></p>
+                </form>
+                <p class="text-center">Not registered? <a  ng-click="registerUser()" href="">Create an account</a>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </p>
+            </div>
+        </div>
+    </div>

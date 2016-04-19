@@ -156,7 +156,7 @@ saazooApp.controller('adminHomeController', function($scope,$http,appSettings,us
     };
     
     
-    $scope.colors = [
+  /*  $scope.colors = [
       {itemPerPage:'2'},
       {itemPerPage:'4'},
       {itemPerPage:'6'},
@@ -164,7 +164,7 @@ saazooApp.controller('adminHomeController', function($scope,$http,appSettings,us
       {itemPerPage:'10'}
     ];
     $scope.myColor = $scope.colors[0];
-    
+    */
     
     /*
     *   show_first Number of records in the list.

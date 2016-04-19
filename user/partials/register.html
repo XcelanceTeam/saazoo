@@ -1,0 +1,117 @@
+ <uib-alert ng-show = "msg!=''" type="{{alerttype}}" dismiss-on-timeout="2000" closeable= "true" close="closeAlert()" >{{ msg }}</uib-alert>
+<div class="box">
+    <form id="regform" method="post" novalidate="novalidate" ng-submit="registerUser()">        
+        <legend class="lead">Tell Us About Your Business<small class="text-muted">(All fields are required)</small></legend>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input class="form-control" id="first_name" maxlength="150" name="first_name" type="text" value="" /><span class="help-block" id="invalid-first_name" style="display:inline"></span></div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input class="form-control" id="last_name" maxlength="150" name="last_name" type="text" value="" /><span class="help-block" id="invalid-last_name" style="display:inline"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input class="form-control" id="job_title" maxlength="150" name="job_title" type="text" value="" /><span class="help-block" id="invalid-job_title" style="display:inline"></span></div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>Telephone</label>
+                    <input class="form-control" id="telephone" maxlength="150" name="telephone" type="tel" value="" /><span class="help-block" id="invalid-telephone" style="display:inline"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input class="form-control" id="company_name" maxlength="150" name="company_name" type="text" value="" /><span class="help-block" id="invalid-company_name" style="display:inline"></span></div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>Website URL</label>
+                    <input autocomplete="off" class="form-control" id="company_url" maxlength="150" name="company_url" type="text" value="" /><span class="help-block" id="invalid-company_url" style="display:inline"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>City</label>
+                    <input autocomplete="off" class="form-control" id="city" maxlength="150" name="city" type="text" value="" /><span class="help-bl" id="invalid-company_url"></span></div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>Country</label>
+                    <select ng-change="getSelectedCountry()"  name="selectedCountry" class="form-control" ng-model="selectedCountry" ng-options= "country.country_name for country in countrylist track by country.id">
+                       
+                    </select>
+                    
+                    <span class="help-block" id="invalid-country" style="display:inline"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>Main App Category</label>
+                    <select ng-change="getSelectedBusinessCategory()"  name="selectedbusinesscategory" class="form-control" ng-model="selectedBusinessCategory" ng-options= "businesscategory.category_name for businesscategory in businesscategorylist track by businesscategory.id">
+                        
+                    </select><span class="help-block" id="invalid-header_id" style="display:inline"></span></div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>Online Advertising Budget (Monthly)</label>
+                    <!--select class="form-control required" id="monthly_budget" name="monthly_budget">
+                        <option value="">Please select a value</option>
+                        <option value="0">None</option>
+                        <option value="0-1000">Less than $1,000</option>
+                        <option value="1000-5000">Between $1,000 and $5,000</option>
+                        <option value="5000-10000">Between $5,000 and $10,000</option>
+                        <option value="10000+">Over $10,000</option>
+                    </select-->
+                    
+                    <input type=text class="form-control"/><span class="help-block" id="invalid-monthly_budget" style="display:inline"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label>How did you hear about GetApp?</label>
+                    <input autocomplete="off" class="form-control" id="reg_source" maxlength="150" name="reg_source" type="text" /><span class="help-block" id="invalid-reg_source" style="display:inline"></span></div>
+            </div>
+        </div>
+        <br />
+        <legend class="lead">Create Your GetApp Login</legend>
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
+                <div class="form-group">
+                    <label>Business Email
+                        <br /><span style="font-weight:normal">(This will act as your username on GetApp)</span></label>
+                    <input class="form-control" id="email" maxlength="150" name="email" type="email" value="" /><span class="help-block" id="invalid-email" style="display:inline"></span></div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input autocomplete="off" class="form-control" id="password" name="password" type="password" value="" /><span class="help-block" id="invalid-password" style="display:inline"></span></div>
+                <div class="form-group">
+                    <label>Repeat Password</label>
+                    <input autocomplete="off" class="form-control" id="password2" name="password2" type="password" value="" /><span class="help-block" id="invalid-password2" style="display:inline"></span></div>
+                <div class="form-group">
+                    <label>Spam Check</label>
+                    <!-- reCAPTCHA -->
+                    <script src="https://www.google.com/recaptcha/api.js?hl=en" async defer></script>
+                    <div class="g-recaptcha" data-sitekey="6LeH9AkTAAAAABQzaab-vBpCns7P_L2JskX_XNhQ"></div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <p class="lead">
+            <button class="btn btn-primary btn-lg submit_reg" name="submit" type="submit"><i class="icon-check"></i> Register Now with GetApp</button>
+        </p>
+        <p class="text-muted">Once registered you will need to select a paid lead generation campaign, starting from $1,000.</p>
+        <p class="text-muted" style="font-size:12px;line-height:15px;">By clicking on the button you accept the GetApp <a href="&#47;terms_of_use" target="_blank">Terms of Use</a> & <a href="&#47;privacy_policy" target="_blank">Privacy Policy</a>.</p>
+    </form>
+</div>
+</div>

@@ -1,7 +1,13 @@
 saazooApp.service('loginService', function($http, $q){
     return ({
         authenticate: authenticate,
+        getCountries : getCountries,
     });
+    
+    
+    /*
+    *  Authenticate User - LOGIN
+    */
     
     function authenticate(username, password)
     {
@@ -17,10 +23,18 @@ saazooApp.service('loginService', function($http, $q){
         return(request.then(handleSuccess, handleError));
     }
     
+    /*
+    * Handle Success
+    */
+    
     function handleSuccess(response)
     {
         return(response.data);
     }
+    
+    /*
+    * Handle Error
+    */    
     
     function handleError( response ) {
         
@@ -32,5 +46,18 @@ saazooApp.service('loginService', function($http, $q){
         }
         return( $q.reject( response.data.msg ) );
     }
+    
+    /*
+    *  Get Country List
+    */
+    
+    function getCountries(){
+        var request = $http({
+            method: "get",
+            url: url+"user/get-country-list-ajax",
+        });
+        return (request.then(handleSuccess,handleError));
+    }
+    
 
 });

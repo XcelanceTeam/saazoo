@@ -20,6 +20,15 @@ saazooApp.config(function($stateProvider, $urlRouterProvider){
     }).state('/editrole',{
         url : '/admin/editrole',
         templateUrl : 'partials/newrole.html'
+    }).state('/login',{
+        url : '/login',
+        templateUrl : 'partials/login.html'
+    }).state('/forgot-password',{
+        url : '/forgot-password',
+        templateUrl : 'partials/forgetpassword.html'
+    }).state('/registeruser',{
+        url : '/register',
+        templateUrl : 'partials/register.html'
     });
 });
 /*saazooApp.config(function($routeProvider, $locationProvider){
@@ -28,4 +37,4 @@ saazooApp.config(function($stateProvider, $urlRouterProvider){
     when('/admin/home', {templateUrl: 'partials/admin/home.html'}).
     otherwise({redirectTo: '/home/'});
     $locationProvider.html5Mode({enabled: true, requireBase: false});
-});*/
+});/forgetpassword #/users/register*/
