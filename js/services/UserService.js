@@ -6,6 +6,7 @@ saazooApp.service('userService', function($http, $q){
         updateRole: updateRole,
         deleteRole: deleteRole,
         getBusinessCategories: getBusinessCategories,
+        registerUser : registerUser,
     });
 
     /*
@@ -112,6 +113,15 @@ saazooApp.service('userService', function($http, $q){
             "url" : url+'user/get-business-category-list-ajax',
         });
         return request.then(handleSuccess,handleError);
+    }
+    
+    /*
+    *  REGISTER USER- VENDORS
+    */
+    
+    function registerUser(csrftoken,gRecaptchaResponse,user_login,user_company_details,user_personal_details){
+        debugger;
+        return $http.post(url+"user/register-user-ajax",{"_csrf" : csrftoken,"gRecaptchaResponse" : gRecaptchaResponse, "user_login" : user_login, "user_company_details" : user_company_details, "user_personal_details" : user_personal_details }).then(handleSuccess,handleError);
     }
     
 });

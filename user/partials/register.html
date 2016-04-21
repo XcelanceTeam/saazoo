@@ -1,69 +1,87 @@
- <uib-alert ng-show = "msg!=''" type="{{alerttype}}" dismiss-on-timeout="2000" closeable= "true" close="closeAlert()" >{{ msg }}</uib-alert>
+<uib-alert ng-show="msg!=''" type="{{alerttype}}" dismiss-on-timeout="2000" closeable="true" close="closeAlert()">{{ msg }}</uib-alert>
 <div class="box">
-    <form id="regform" method="post" novalidate="novalidate" ng-submit="registerUser()">        
+    <form name = "regForm" novalidate ng-submit="registerUser()" ng-controller="userController">
         <legend class="lead">Tell Us About Your Business<small class="text-muted">(All fields are required)</small></legend>
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>First Name</label>
-                    <input class="form-control" id="first_name" maxlength="150" name="first_name" type="text" value="" /><span class="help-block" id="invalid-first_name" style="display:inline"></span></div>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>Last Name</label>
-                    <input class="form-control" id="last_name" maxlength="150" name="last_name" type="text" value="" /><span class="help-block" id="invalid-last_name" style="display:inline"></span></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>Job Title</label>
-                    <input class="form-control" id="job_title" maxlength="150" name="job_title" type="text" value="" /><span class="help-block" id="invalid-job_title" style="display:inline"></span></div>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>Telephone</label>
-                    <input class="form-control" id="telephone" maxlength="150" name="telephone" type="tel" value="" /><span class="help-block" id="invalid-telephone" style="display:inline"></span></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>Company Name</label>
-                    <input class="form-control" id="company_name" maxlength="150" name="company_name" type="text" value="" /><span class="help-block" id="invalid-company_name" style="display:inline"></span></div>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>Website URL</label>
-                    <input autocomplete="off" class="form-control" id="company_url" maxlength="150" name="company_url" type="text" value="" /><span class="help-block" id="invalid-company_url" style="display:inline"></span></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>City</label>
-                    <input autocomplete="off" class="form-control" id="city" maxlength="150" name="city" type="text" value="" /><span class="help-bl" id="invalid-company_url"></span></div>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>Country</label>
-                    <select ng-change="getSelectedCountry()"  name="selectedCountry" class="form-control" ng-model="selectedCountry" ng-options= "country.country_name for country in countrylist track by country.id">
-                       
-                    </select>
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label for="first_name">First Name</label>
+                    <input class="form-control" id="first_name" maxlength="150" name="first_name" type="text" ng-model="user_personal_details.first_name" required="required" />
                     
-                    <span class="help-block" id="invalid-country" style="display:inline"></span></div>
+                     <p class="help-block" ng-if="regForm.first_name.$error.required">The first name is required</p>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label for="last_name">Last Name</label>
+                    <input class="form-control" id="last_name" maxlength="150" name="last_name" type="text" ng-model="user_personal_details.last_name" required="required"/>
+                    <p class="help-block" ng-if="regForm.last_name.$error.required">The last name is required</p>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>Main App Category</label>
-                    <select ng-change="getSelectedBusinessCategory()"  name="selectedbusinesscategory" class="form-control" ng-model="selectedBusinessCategory" ng-options= "businesscategory.category_name for businesscategory in businesscategorylist track by businesscategory.id">
-                        
-                    </select><span class="help-block" id="invalid-header_id" style="display:inline"></span></div>
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label for="job_title">Job Title</label>
+                    <input class="form-control" id="job_title" maxlength="150" name="job_title" type="text" ng-model="user_company_details.contact_person_job_title" required="required"/>
+                    <p class="help-block" ng-if="regForm.job_title.$error.required">The job title is required</p>
+                </div>
             </div>
             <div class="col-md-6 col-lg-6">
-                <div class="form-group">
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label>Telephone</label>
+                    <input class="form-control" id="telephone" maxlength="150" name="telephone" type="tel" ng-model="user_company_details.conpany_contact" required="required" />
+                    <p class="help-block" ng-if="regForm.telephone.$error.required">The telephone is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6" >
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label>Company Name</label>
+                    <input class="form-control" id="company_name" maxlength="150" name="company_name" type="text" ng-model="user_company_details.company_name" required="required" />
+                    <p class="help-block" ng-if="regForm.company_name.$error.required">The company name is required</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label>Website URL</label>
+                    <input autocomplete="off" class="form-control" id="company_url" maxlength="150" name="company_url" type="url" ng-model="user_company_details.company_website" required="required" />
+                    <p class="help-block" ng-if="regForm.company_url.$error.required">The website url is required</p>
+                    <p class="help-block" ng-if="regForm.company_url.$error.url">Enter proper website url</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6" >
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label>City</label>
+                    <input autocomplete="off" class="form-control" id="city" maxlength="150" name="city" type="text" ng-model="user_company_details.city" required="required" />
+                    <p class="help-block" ng-if="regForm.city.$error.required">The city is required</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label>Country</label>
+                    <select ng-change="getSelectedCountry()" name="selectedCountry" class="form-control" ng-model="selectedCountry" ng-options="country.country_name for country in countrylist track by country.id">
+                        <option value="">Select Country</option>
+                    </select>
+                    <p class="help-block" ng-if="regForm.selectedCountry.$error.required">The country is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label>Main App Category</label>
+                    <select ng-change="getSelectedBusinessCategory()" name="selectedbusinesscategory" class="form-control" ng-model="selectedBusinessCategory" ng-options="businesscategory.category_name for businesscategory in businesscategorylist track by businesscategory.id" required="required">
+                    </select>
+                    <p class="help-block" ng-if="regForm.selectedbusinesscategory.$error.required">The category is required</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="form-group" show-errors='{showSuccess: true}'>
                     <label>Online Advertising Budget (Monthly)</label>
                     <!--select class="form-control required" id="monthly_budget" name="monthly_budget">
                         <option value="">Please select a value</option>
@@ -73,45 +91,58 @@
                         <option value="5000-10000">Between $5,000 and $10,000</option>
                         <option value="10000+">Over $10,000</option>
                     </select-->
-                    
-                    <input type=text class="form-control"/><span class="help-block" id="invalid-monthly_budget" style="display:inline"></span></div>
+
+                    <input type=text class="form-control" name="monthly_budget" ng-model="user_personal_details.monthly_budget" required="required" />
+                    <p class="help-block" ng-if="regForm.monthly_budget.$error.required">The monthly budget is required</p>
+                </div>
+                
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                    <label>How did you hear about GetApp?</label>
-                    <input autocomplete="off" class="form-control" id="reg_source" maxlength="150" name="reg_source" type="text" /><span class="help-block" id="invalid-reg_source" style="display:inline"></span></div>
+                <div class="form-group" show-errors='{showSuccess: true}'>
+                    <label>How did you hear about SAAZOO?</label>
+                    <input autocomplete="off" class="form-control" id="reg_source" maxlength="150" name="reg_source" type="text" ng-model="user_personal_details.referred_by" required="required" />
+                <p class="help-block" ng-if="regForm.reg_source.$error.required">The resource is required</p>
+                </div>
+                
             </div>
         </div>
         <br />
-        <legend class="lead">Create Your GetApp Login</legend>
+        <legend class="lead">Create Your SAAZOO Login</legend>
         <div class="row">
             <div class="col-md-12 col-lg-6">
-                <div class="form-group">
+                <div class="form-group" show-errors='{showSuccess: true}'>
                     <label>Business Email
-                        <br /><span style="font-weight:normal">(This will act as your username on GetApp)</span></label>
-                    <input class="form-control" id="email" maxlength="150" name="email" type="email" value="" /><span class="help-block" id="invalid-email" style="display:inline"></span></div>
-                <div class="form-group">
+                        <br /><span style="font-weight:normal">(This will act as your username on SAAZOO)</span></label>
+                    <input class="form-control" id="email" maxlength="150" name="email" type="email" ng-model="user_login.email" required="required" />
+                    <p class="help-block" ng-if="regForm.email.$error.required">The email is required</p>
+                    <p class="help-block" ng-if="regForm.email.$error.email">Enter valid email address</p>
+                </div>
+                <div class="form-group" show-errors='{showSuccess: true}'>
                     <label>Password</label>
-                    <input autocomplete="off" class="form-control" id="password" name="password" type="password" value="" /><span class="help-block" id="invalid-password" style="display:inline"></span></div>
-                <div class="form-group">
+                    <input autocomplete="off" class="form-control" id="password" name="password" type="password" ng-model="user_login.password" required="required" />
+                    <p class="help-block" ng-if="regForm.password.$error.required">The password is required</p>
+                </div>
+                <div class="form-group" show-errors='{showSuccess: true}'>
                     <label>Repeat Password</label>
-                    <input autocomplete="off" class="form-control" id="password2" name="password2" type="password" value="" /><span class="help-block" id="invalid-password2" style="display:inline"></span></div>
+                    <input autocomplete="off" class="form-control" id="password2" name="password2" type="password" value="" required="required" ng-model="user_login.confirm_password"/>
+                    <p class="help-block" ng-if="regForm.password2.$error.required">The confirm password is required</p>
+                </div>
                 <div class="form-group">
                     <label>Spam Check</label>
                     <!-- reCAPTCHA -->
-                    <script src="https://www.google.com/recaptcha/api.js?hl=en" async defer></script>
-                    <div class="g-recaptcha" data-sitekey="6LeH9AkTAAAAABQzaab-vBpCns7P_L2JskX_XNhQ"></div>
+                    <div vc-recaptcha key="'6Lev3R0TAAAAAMMhFtC-IANByr6YIK2EKurTi5ev'"></div>
                 </div>
+
             </div>
         </div>
         <hr />
         <p class="lead">
-            <button class="btn btn-primary btn-lg submit_reg" name="submit" type="submit"><i class="icon-check"></i> Register Now with GetApp</button>
+            <button class="btn btn-primary btn-lg submit_reg" name="submit" type="submit"><i class="icon-check"></i> Register Now with SAAZOO</button>
         </p>
         <p class="text-muted">Once registered you will need to select a paid lead generation campaign, starting from $1,000.</p>
-        <p class="text-muted" style="font-size:12px;line-height:15px;">By clicking on the button you accept the GetApp <a href="&#47;terms_of_use" target="_blank">Terms of Use</a> & <a href="&#47;privacy_policy" target="_blank">Privacy Policy</a>.</p>
+        <p class="text-muted" style="font-size:12px;line-height:15px;">By clicking on the button you accept the SAAZOO <a href="&#47;terms_of_use" target="_blank">Terms of Use</a> & <a href="&#47;privacy_policy" target="_blank">Privacy Policy</a>.</p>
     </form>
 </div>
 </div>

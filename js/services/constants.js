@@ -7,5 +7,6 @@ angular.module('saazooApp').constant("appSettings",{
     EMPTYDATA : "No record present in the database",
     ROLEUPDATESUCCESS: "Role successfully updated",  
     ROLEDELETESUCCESS: "Role successfully deleted",
+    RECAPTCHAVALIDATIONFAILED : "Please verify captcha again."
 });
 

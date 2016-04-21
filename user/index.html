@@ -12,7 +12,9 @@
     <link rel="stylesheet" type="text/css" href="/saazoo/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/saazoo/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="/saazoo/css/style.css" />
-
+     <!--script src='https://www.google.com/recaptcha/api.js'></script-->
+    
+    <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer ></script>
 </head>
 
 <body>
@@ -34,6 +36,10 @@
     <script src="/saazoo/js/services/UserService.js"></script>
     <script src="/saazoo/js/controllers/UserController.js"></script>
     <script src="/saazoo/js/directives/IndexDirectives.js"></script>
+      <script src="/saazoo/js/directives/ErrorDirectives.js"></script>
+    <script src="/saazoo/js/providers/ErrorConfigProviders.js"></script>
+  
     <script src="/saazoo/js/services/constants.js"></script>
     <script src="/saazoo/js/assets/dirPagination.js"></script>
+    <script src="/saazoo/js/angular-recaptcha.js"></script>
 </html>

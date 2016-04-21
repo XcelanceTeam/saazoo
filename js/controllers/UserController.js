@@ -1,4 +1,4 @@
-saazooApp.controller('userController', function($scope,$http,appSettings,loginService,userService,$location,$filter,$timeout,$window){
+saazooApp.controller('userController', function($scope,$http,appSettings,loginService,userService,$location,$filter,$timeout,$window,vcRecaptchaService){
     
    $scope.appSettings = appSettings;
    $scope.copyyear = new Date().getFullYear();
@@ -23,7 +23,12 @@ saazooApp.controller('userController', function($scope,$http,appSettings,loginSe
        "industry_type" : "",
        "monthly_budget" : "",
        "countryid" : "",
+       "referred_by" : "",
    };
+    
+    $scope.captcha = {
+     "response" : "",   
+    };
     
    /*
    *   COUNTRY  Model
@@ -66,8 +71,24 @@ saazooApp.controller('userController', function($scope,$http,appSettings,loginSe
         "org_type" : "",
         "status" : "",
         "company_website" : "",
+        "city" : "",
         "contact_person_job_title" : "",
     };
+    
+    /*
+    * USER LOGIN Model
+    */
+    
+    $scope.user_login = {
+        "id" : "",
+        "email" : "",
+        "password" : "",
+        "confirm_password" : "", 
+        "status" : "",
+        "register_type" : "",
+        "profile_pic" : "",
+    }
+    
 /****************************MODEL DEFINATION ENDS***************************************/
 /***********************COUNRTY SECTION START********************************/
     
@@ -84,9 +105,9 @@ saazooApp.controller('userController', function($scope,$http,appSettings,loginSe
                     $scope.country = country;
                     $scope.countrylist.push($scope.country);    
                 });
-                $scope.defaultoption = {"id": 0, "country_name" : 'Please Select Country'};                
-                $scope.countrylist.splice(0, 0,$scope.defaultoption);
-                $scope.selectedCountry = $scope.countrylist[0];
+                //$scope.defaultoption = {"id": 0, "country_name" : 'Please Select Country'};                
+                //$scope.countrylist.splice(0, 0,$scope.defaultoption);
+                //$scope.selectedCountry = $scope.countrylist[0];
                 
             }else{
                 $scope.alerttype = 'danger';
@@ -132,4 +153,43 @@ saazooApp.controller('userController', function($scope,$http,appSettings,loginSe
     
     $scope.getBusinessCategories();
     
+    
+   
+    $scope.captcha = {
+        "publicKey" : "6Lev3R0TAAAAAMMhFtC-IANByr6YIK2EKurTi5ev"
+    }
+    
+  
+   /*
+    * Retrieve csrf token from yii2
+    */ 
+    $scope.csrf = userService.getCsrf().then(function(result){
+            $scope.csrftoken = result.data.csrf;
+    });
+   
+    $scope.registerUser = function(){
+        $scope.$broadcast('show-errors-check-validity');        
+        if ($scope.regForm.$valid){
+            var response = vcRecaptchaService.getResponse();
+            if(response===''){
+                $scope.alerttype = 'danger';
+                $scope.msg= appSettings.RECAPTCHAVALIDATIONFAILED; 
+                
+            }else{
+                debugger;
+                if($scope.selectedBusinessCategory.id == 0 || $scope.selectedCountry.id == 0){
+                    $scope.alerttype = 'danger';
+                    $scope.msg= appSettings.RECAPTCHAVALIDATIONFAILED; 
+                }else{
+                   $scope.user_personal_details.countryid = $scope.selectedCountry.id;
+                   $scope.user_company_details.business_category = $scope.selectedBusinessCategory.id;
+                    userService.registerUser($scope.csrftoken,$scope.gRecaptchaResponse,$scope.user_login,$scope.user_company_details,$scope.user_personal_details).then(function(result){
+                       console.log(result); 
+                    });
+                }
+            }
+        }
+        
+       
+    };
 });

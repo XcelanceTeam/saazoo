@@ -77,6 +77,18 @@ class UserController extends \yii\web\Controller
         echo Json::encode(array('status'=>0, 'msg'=>'success','data' => $businesscategorylist));
     }
     
+    /*
+    *  REGISTER USER- VENDORS
+    */
+    
+    public function actionRegisterUserAjax(){
+        $request = Yii::$app->request;
+        if ($request->isPost){           
+         //   $role = $request->getBodyParam('role');
+            echo Json::encode("here"); die;
+        }
+    }
+    
 }
 
 ?>
