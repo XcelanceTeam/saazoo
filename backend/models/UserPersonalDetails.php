@@ -16,7 +16,10 @@ use Yii;
  * @property integer $industry_type
  * @property string $notification_email
  * @property string $monthly_budget
+ * @property integer $countryid
+ * @property string $referred_by
  *
+ * @property Countries $country
  * @property BusinessIndustries $industryType
  * @property UserLogin $user
  */
@@ -36,9 +39,10 @@ class UserPersonalDetails extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'first_name', 'doj', 'industry_type'], 'required'],
-            [['user_id', 'industry_type'], 'integer'],
+            [['user_id', 'first_name', 'countryid'], 'required'],
+            [['user_id', 'industry_type', 'countryid'], 'integer'],
             [['doj'], 'safe'],
+            [['referred_by'], 'string'],
             [['first_name', 'last_name'], 'string', 'max' => 25],
             [['gender'], 'string', 'max' => 7],
             [['notification_email'], 'string', 'max' => 150],
@@ -62,7 +66,17 @@ class UserPersonalDetails extends \yii\db\ActiveRecord
             'industry_type' => 'Industry Type',
             'notification_email' => 'Notification Email',
             'monthly_budget' => 'Monthly Budget',
+            'countryid' => 'Countryid',
+            'referred_by' => 'How did you hear about SAAZOO?',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCountry()
+    {
+        return $this->hasOne(Countries::className(), ['id' => 'countryid']);
     }
 
     /**

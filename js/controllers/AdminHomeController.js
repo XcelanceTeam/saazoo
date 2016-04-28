@@ -6,7 +6,7 @@ saazooApp.controller('adminHomeController', function($scope,$http,appSettings,us
      $scope.menus = [
         {
             "name": "Dashboard",
-            "link": "#/home",
+            "link": "/home",
             "icon": "fa fa-dashboard"
         },
         {
@@ -14,12 +14,12 @@ saazooApp.controller('adminHomeController', function($scope,$http,appSettings,us
             "subItems" : [
                 {
                     "name" : "User Roles",
-                    "link" : "#/admin/userroles",
+                    "link" : "userroles", //admin/
                     "icon" : "fa fa-cog"
                 },
                 {
                     "name" : "Users List",
-                    "link": "#/admin/users",
+                    "link": "users",  // admin/
                     "icon": "fa fa-user"
                 }
              ],

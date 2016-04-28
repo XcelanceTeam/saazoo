@@ -11,6 +11,7 @@ saazooApp.service('loginService', function($http, $q){
     
     function authenticate(username, password)
     {
+        console.log('here');
         var request = $http({
             method: "get",
             url: url+"admin/login-ajax",
@@ -20,6 +21,7 @@ saazooApp.service('loginService', function($http, $q){
             },
             
         });
+        console.log(request);
         return(request.then(handleSuccess, handleError));
     }
     
@@ -29,6 +31,7 @@ saazooApp.service('loginService', function($http, $q){
     
     function handleSuccess(response)
     {
+        console.log(response);
         return(response.data);
     }
     

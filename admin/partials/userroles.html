@@ -7,12 +7,12 @@
         
     </section>
 
-    <!-- Main content ng-init= "getRoles()"-->
+    <!-- Main content ng-init= "getRoles()"   admin/addnewrole-->
     <section class="content" > 
         <div class="row">
             <div class="col-xs-12">
                  <uib-alert ng-show = "msg!=''" type="{{alerttype}}" closeable= "true" close="closeAlert()">{{ msg }}</uib-alert>
-                <a href="#/admin/addnewrole" class="btn btn-block btn-info xc-btn-add-new-user"><i class="fa fa-plus-circle "></i><span class="xc-icon-spacer">New Role</span></a>
+                <a ui-sref= "newrole" class="btn btn-block btn-info xc-btn-add-new-user"><i class="fa fa-plus-circle "></i><span class="xc-icon-spacer">New Role</span></a>
                
                 <div class="box">
                     <div class="box-header">
@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div id="example1_filter" class="dataTables_filter">
+                                    <div class="dataTables_filter">
                                         <label>Search:
                                             <input type="search" ng-model="search" class="form-control input-sm" placeholder="" aria-controls="example1">
                                         </label>
@@ -78,7 +78,7 @@
                          
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing {{fromRecord}} to {{ toRecord }} of {{total_count}} entries</div>
+                                    <div class="dataTables_info" role="status" aria-live="polite">Showing {{fromRecord}} to {{ toRecord }} of {{total_count}} entries</div>
                                 </div>
                                 <div class="col-sm-7">                                    
                                     <dir-pagination-controls  direction-links="true" boundary-links="true"  on-page-change="getRoles(newPageNumber)" >

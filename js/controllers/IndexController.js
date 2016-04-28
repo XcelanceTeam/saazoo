@@ -14,7 +14,7 @@ saazooApp.controller('indexController', function($scope, $http, $state, $locatio
         },
         {
             "name": "Lab",
-            "link": "#",
+            "link": "",
         },
         {
             "name": "Sign In",
@@ -48,9 +48,12 @@ saazooApp.controller('indexController', function($scope, $http, $state, $locatio
                 $("#login-modal").modal('toggle');
               
                 $scope.pageTitle = "Admin Panel";
-                var destinationurl = "http://"+$window.location.host+'/saazoo/admin/index.html';
+                var destinationurl = "http://"+$window.location.host+'/saazoo/admin';
                 $window.location.href = destinationurl;
-               //$location.path('/admin/home');  
+                
+               
+                //$location.path('/admin/home');  
+                //console.log($location.path());
                // $window.location.href('/admin/home');
             }
             else
@@ -73,7 +76,7 @@ saazooApp.controller('indexController', function($scope, $http, $state, $locatio
     */
     
     $scope.forgotPassword = function(){
-        var destinationurl = "http://"+$window.location.host+'/saazoo/user/index.html#/forgot-password';
+        var destinationurl = "http://"+$window.location.host+'/saazoo/user/index.html/forgot-password';
         $window.location.href = destinationurl;
     }
     
@@ -82,7 +85,7 @@ saazooApp.controller('indexController', function($scope, $http, $state, $locatio
     */
     
     $scope.registerUser = function(){
-        var destinationurl = "http://"+$window.location.host+'/saazoo/user/index.html#/register';
+        var destinationurl = "http://"+$window.location.host+'/saazoo/user/register';
         $window.location.href = destinationurl;
     }
 });

@@ -2,6 +2,7 @@ angular.module('saazooApp').constant("appSettings",{
     ROOT : 'saazoo admin',
     ADDROLESUCCESS : 'Role successfully added',
     ROLEALREADYEXISTS : 'Role already exists. Please choose different one',
+    ROLENOTEXISTS : 'Role is not present. Please create role first',
     UNKNOWNERROR : "Unknown error occured ",
     NEWROLETITLE : "Please enter the role and click submit to create new role",
     EMPTYDATA : "No record present in the database",

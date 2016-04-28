@@ -81,8 +81,9 @@ class AdminController extends \yii\web\Controller
     
     public function actionLoginAjax()
     {
+        
         $email = $_GET['email'];
-        $pwd = $_GET['pwd'];
+        $pwd = $_GET['pwd'];      
         $res=array();
         if($email != "admin")
         {

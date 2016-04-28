@@ -65,7 +65,7 @@ class UserController extends \yii\web\Controller
     public function actionGetCountryListAjax()
     {
         $countrylist = Countries::find()->all();
-        echo Json::encode(array('status'=>0, 'msg'=>'success','data' => $countrylist));
+        echo Json::encode(array('status'=>0, 'msg'=>'success','data' => $countrylist)); 
     }
     
     /*
@@ -74,7 +74,28 @@ class UserController extends \yii\web\Controller
     
     public function actionGetBusinessCategoryListAjax(){
         $businesscategorylist = BusinessCategories::find()->all();
-        echo Json::encode(array('status'=>0, 'msg'=>'success','data' => $businesscategorylist));
+        echo Json::encode(array('status'=>0, 'msg'=>'success','data' => $businesscategorylist)); 
+    }
+    
+    
+    /*
+    *  GET USER ROLE IDs
+    */
+    
+    public function actionGetUserRoleAjax()
+    {
+        $request = Yii::$app->request;
+        if ($request->isPost){
+            $role = $request->getBodyParam('rolename');
+            $exRole = UserRoles::find()->where("role_name='".$role."'")->one();
+            if($exRole)
+            {
+                echo Json::encode(array('status'=>0, 'msg'=>'success','data'=>$exRole));
+            }else{
+                echo Json::encode(array('status'=>4, 'msg'=>'notexists'));
+            }
+            
+        }
     }
     
     /*
@@ -84,8 +105,70 @@ class UserController extends \yii\web\Controller
     public function actionRegisterUserAjax(){
         $request = Yii::$app->request;
         if ($request->isPost){           
-         //   $role = $request->getBodyParam('role');
-            echo Json::encode("here"); die;
+            $gRecaptchaResponse_param = $request->getBodyParam('gRecaptchaResponse');
+            $user_login_request_param = $request->getBodyParam('user_login');
+            $user_company_details_request_param = $request->getBodyParam('user_company_details');
+            $user_personal_details_request_param = $request->getBodyParam('user_personal_details');
+            
+            /********************* USER_LOGIN SAVE************************/
+            $userLogin = new UserLogin();
+            $userLogin->email = $user_login_request_param['email'];
+            $userLogin->password = Yii::$app->getSecurity()->generatePasswordHash($user_login_request_param['password']);
+            $userLogin->status = 0;
+            $userLogin->user_role = $user_login_request_param['user_role'];
+            $userLogin->register_type = $user_login_request_param['register_type'];
+            
+            if($userLogin->save()){
+                
+            /********************* USER_PERSONAL_DETAILS SAVE************************/
+                
+                $userPersonalDetails =  new UserPersonalDetails();
+                $userPersonalDetails->user_id = $userLogin->id;
+                $userPersonalDetails->first_name = $user_personal_details_request_param['first_name'];
+                $userPersonalDetails->last_name = $user_personal_details_request_param['last_name'];
+                $userPersonalDetails->gender = $user_personal_details_request_param['gender'];
+                $userPersonalDetails->industry_type = $user_personal_details_request_param['industry_type'];
+                $userPersonalDetails->countryid = $user_personal_details_request_param['countryid'];
+                $userPersonalDetails->monthly_budget = $user_personal_details_request_param['monthly_budget'];
+                $userPersonalDetails->referred_by = $user_personal_details_request_param['referred_by'];
+                $userPersonalDetails->notification_email = $userLogin->email;
+                $userPersonalDetails->doj = new \yii\db\Expression('NOW()');
+                
+                if($userPersonalDetails->save()){
+                    
+                }else{
+                    
+                    echo Json::encode(array('status'=>1, 'msg'=>'error','errormessages'=>$userPersonalDetails->getErrors()));
+                }
+                
+            /********************* USER_COMPANY_DETAILS SAVE************************/
+                
+                $userCompanyDetails = new UserCompanyDetails();
+                
+                $userCompanyDetails->business_category = $user_company_details_request_param['business_category'];
+                $userCompanyDetails->business_sub_category = $user_company_details_request_param['business_sub_category'];
+                $userCompanyDetails->company_address = $user_company_details_request_param['company_address'];
+                $userCompanyDetails->company_description = $user_company_details_request_param['company_description'];
+                $userCompanyDetails->company_logo = $user_company_details_request_param['company_logo'];
+                $userCompanyDetails->company_name = $user_company_details_request_param['company_name'];
+                $userCompanyDetails->company_size = $user_company_details_request_param['company_size'];
+                $userCompanyDetails->company_website = $user_company_details_request_param['company_website'];
+                $userCompanyDetails->company_contact = $user_company_details_request_param['company_contact'];
+                $userCompanyDetails->contact_person = $user_company_details_request_param['contact_person'];
+                $userCompanyDetails->contact_person_job_title = $user_company_details_request_param['contact_person_job_title'];
+                $userCompanyDetails->industry_type = $user_company_details_request_param['industry_type'];
+                $userCompanyDetails->org_type = $user_company_details_request_param['org_type'];
+                $userCompanyDetails->status = 0;
+                $userCompanyDetails->user_id = $userLogin->id;                
+                if($userCompanyDetails->save()){
+                    
+                }else{
+                     echo Json::encode(array('status'=>1, 'msg'=>'error','errormessages'=>$userCompanyDetails->getErrors()));
+                }
+                
+            }
+            
+            
         }
     }
     

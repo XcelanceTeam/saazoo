@@ -60,7 +60,7 @@ saazooApp.controller('userController', function($scope,$http,appSettings,loginSe
         "user_id" : "",
         "company_name" : "",
         "company_address" : "",
-        "conpany_contact" : "",
+        "company_contact" : "",
         "contact_person" : "",
         "company_description" : "",
         "company_logo" : "",
@@ -87,6 +87,7 @@ saazooApp.controller('userController', function($scope,$http,appSettings,loginSe
         "status" : "",
         "register_type" : "",
         "profile_pic" : "",
+        "user_role" : "",
     }
     
 /****************************MODEL DEFINATION ENDS***************************************/
@@ -174,18 +175,34 @@ saazooApp.controller('userController', function($scope,$http,appSettings,loginSe
             if(response===''){
                 $scope.alerttype = 'danger';
                 $scope.msg= appSettings.RECAPTCHAVALIDATIONFAILED; 
-                
+                $location.path('register');
             }else{
                 debugger;
                 if($scope.selectedBusinessCategory.id == 0 || $scope.selectedCountry.id == 0){
                     $scope.alerttype = 'danger';
                     $scope.msg= appSettings.RECAPTCHAVALIDATIONFAILED; 
+                     $location.path('/register');
                 }else{
                    $scope.user_personal_details.countryid = $scope.selectedCountry.id;
                    $scope.user_company_details.business_category = $scope.selectedBusinessCategory.id;
-                    userService.registerUser($scope.csrftoken,$scope.gRecaptchaResponse,$scope.user_login,$scope.user_company_details,$scope.user_personal_details).then(function(result){
-                       console.log(result); 
+                   
+                    userService.getUserRoleId('Vendor',$scope.csrftoken).then(function(result){
+                    debugger;
+                    if(result.status == 0){
+                        $scope.user_login.user_role = result.data.id; 
+                        $scope.user_login.register_type = "email"; userService.registerUser($scope.csrftoken,response,$scope.user_login,$scope.user_company_details,$scope.user_personal_details).then(function(result){
+                        console.log(result); 
+                        });
+                    }else{
+                        console.log("here in not exists");
+                        $scope.alerttype = 'danger';
+                        $scope.msg= appSettings.ROLENOTEXISTS; 
+                        $location.path('register');
+                    }    
+                    
                     });
+                    
+                    
                 }
             }
         }

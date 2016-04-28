@@ -1,0 +1,15 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)\?*$ index.html?r=$1 [L,QSA]
+
+  #RewriteEngine   On
+  #RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+  #RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+  #RewriteRule ^ - [L]
+  #RewriteCond %{HTTP:X-Requested-With} !XMLHttpRequest$
+ 
+  # If the requested resource doesn't exist, use index.html
+  #RewriteRule ^ ./index.html
+  
+  #http://localhost/saazoo/backend/index.php/admin/login-ajax?email=admin&pwd=admin

@@ -49,7 +49,7 @@ class UserCompanyDetails extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'business_sub_category', 'business_category', 'company_size', 'industry_type', 'org_type', 'status'], 'required'],
+            [['user_id', 'business_category', 'status'], 'required'],
             [['user_id', 'business_sub_category', 'business_category', 'company_size', 'industry_type', 'org_type', 'status'], 'integer'],
             [['company_address', 'company_description'], 'string'],
             [['company_name'], 'string', 'max' => 45],

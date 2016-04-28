@@ -7,6 +7,7 @@ saazooApp.service('userService', function($http, $q){
         deleteRole: deleteRole,
         getBusinessCategories: getBusinessCategories,
         registerUser : registerUser,
+        getUserRoleId : getUserRoleId,
     });
 
     /*
@@ -124,4 +125,13 @@ saazooApp.service('userService', function($http, $q){
         return $http.post(url+"user/register-user-ajax",{"_csrf" : csrftoken,"gRecaptchaResponse" : gRecaptchaResponse, "user_login" : user_login, "user_company_details" : user_company_details, "user_personal_details" : user_personal_details }).then(handleSuccess,handleError);
     }
     
+    /*
+    *   Get User Role Id 
+    */
+    
+    function getUserRoleId(rolename,csrftoken)
+    {
+        debugger;
+        return $http.post(url+"user/get-user-role-ajax",{"_csrf" : csrftoken, "rolename" : rolename}).then(handleSuccess,handleError);
+    }
 });
